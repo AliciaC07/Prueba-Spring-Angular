@@ -12,10 +12,10 @@ public class Productos implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "nombre", nullable = false)
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "descripcion",nullable = false)
+    @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "precio", nullable = false)

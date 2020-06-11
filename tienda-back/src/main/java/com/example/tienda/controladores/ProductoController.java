@@ -44,7 +44,7 @@ public class ProductoController {
         return productoServicio.findbyId(id);
     }
     @DeleteMapping(value = "/producto/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void eliminarpro(@PathVariable Integer id){
         productoServicio.delete(id);
     }
