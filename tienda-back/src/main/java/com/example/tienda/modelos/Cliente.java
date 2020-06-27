@@ -1,77 +1,61 @@
 package com.example.tienda.modelos;
 
+
+
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
+@Getter
+@Setter
 @Table(name = "cliente")
 public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name ="nombre",nullable = false)
+    @NotEmpty
+    @Size(min = 2, max = 49)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "apellido",nullable = false)
+    @NotEmpty
+    @Size(min = 2, max = 49)
+    @Column(name = "apellido", nullable = false)
     private String apellido;
 
-    @Column(name = "email",nullable = false, unique = true)
+    @NotEmpty
+    @Email
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "direccion",nullable = false)
+    @NotEmpty
+    @Size(min = 2, max = 100)
+    @Column(name = "direccion", nullable = false)
     private String direccion;
 
-    @Column(name = "fecha_na",nullable = false)
+    @NotEmpty
+    @Column(name = "fecha_na", nullable = false)
     private Date fechanaci;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Factura> facturas = new ArrayList<>();
 
-    public Integer getId() {
-        return id;
+    public void addFacturas(Factura factura){
+        facturas.add(factura);
+        factura.setCliente(this);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public Date getFechanaci() {
-        return fechanaci;
-    }
-
-    public void setFechanaci(Date fechanaci) {
-        this.fechanaci = fechanaci;
+    public Cliente() {
     }
 }
